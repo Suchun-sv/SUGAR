@@ -431,6 +431,7 @@ def main(params):
                 train_loss = 0
                 train_acc = 0
                 batch_num = 0
+                endingRLEpoch = 0
                 idx = np.random.permutation(feature.shape[2])
                 for i in range(0, train_size, batch_size):
                     x_batch, sadj_batch, t_batch, mask_batch, x_batch_dsi, sadj_batch_dsi, t_batch_dsi, mask_batch_dsi \
@@ -447,6 +448,7 @@ def main(params):
                     if epoch >= 100 and (not isTerminal(k_record, limited_epochs=20, delta_k=0.04)):
                         k, reward = run_QL(env, RL, net, x_batch, x_batch_dsi, sadj_batch, t_batch, t_batch_mi, mask_batch, acc)
                         k_record.append(round(k, 4))
+                        endingRLEpoch = epoch
 
                     batch_num += 1
                     train_loss += loss
@@ -469,7 +471,7 @@ def main(params):
                 train_loss_record.append(train_loss / batch_num)
                 train_acc_record.append(eva_acc)
                 tbar.set_description_str("folds {}/{}".format(fold + 1, folds))
-                tbar.set_postfix_str("k:{:.2f}, loss: {:.2f}, best_acc:{:.2f}".format(k, train_loss / batch_num, max_fold_acc))
+                tbar.set_postfix_str("k:{:.2f}, loss: {:.2f}, best_acc:{:.2f}, RL:{}".format(k, train_loss / batch_num, max_fold_acc, endingRLEpoch))
 
                 try:
                     eva_acc_record.append(eva_acc)
