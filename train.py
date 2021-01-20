@@ -451,6 +451,8 @@ def main(params):
                         k, reward = run_QL(env, RL, net, x_batch, x_batch_dsi, sadj_batch, t_batch, t_batch_mi, mask_batch, acc)
                         k_record.append(round(k, 4))
                         endingRLEpoch = epoch
+                    else:
+                        k_record.append(round(k, 4))
 
                     batch_num += 1
                     train_loss += loss
