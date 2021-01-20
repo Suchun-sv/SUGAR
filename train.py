@@ -444,7 +444,7 @@ def main(params):
                         t_batch_mi, mask_batch,
                         learning_rate, momentum,
                         k)
-                    if epoch >= 100 and (not isTerminal(k_record, limited_epochs=10, delta_k=0.2)):
+                    if epoch >= 100 and (not isTerminal(k_record, limited_epochs=10, delta_k=0.02)):
                         k, reward = run_QL(env, RL, net, x_batch, x_batch_dsi, sadj_batch, t_batch, t_batch_mi, mask_batch, acc)
                         k_record.append(round(k, 4))
 

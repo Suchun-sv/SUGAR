@@ -49,7 +49,14 @@ class QLearningTable:
 
 
 
-def isTerminal(k_record, limited_epochs, delta_k, start_check_epochs=100):
+def isTerminal(k_record, limited_epochs, delta_k, start_check_epochs=300):
+    """
+   After $start_check_epochs, check the $range of k's change in last $limited_epochs.
+   if the $range less than $delta_k,
+
+   *for example k_record = [ 0.1, 0.2 ,0.3, 0.3] the last 3 change is [0.2, 0.3, 0.3],
+   the range of it is 0.1 (0.3 - 0.2), which less than 0.3(if the delta k is 0.3)
+    """
     assert start_check_epochs > limited_epochs
     if len(k_record) >= start_check_epochs:
         record_len = len(k_record)
