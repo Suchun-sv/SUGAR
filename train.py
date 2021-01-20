@@ -426,12 +426,12 @@ def main(params):
             tbar = tqdm.tqdm(range(num_epochs))
             train_acc_record = []
             train_loss_record = []
+            endingRLEpoch = 0
 
             for epoch in tbar:
                 train_loss = 0
                 train_acc = 0
                 batch_num = 0
-                endingRLEpoch = 0
                 idx = np.random.permutation(feature.shape[2])
                 for i in range(0, train_size, batch_size):
                     x_batch, sadj_batch, t_batch, mask_batch, x_batch_dsi, sadj_batch_dsi, t_batch_dsi, mask_batch_dsi \
