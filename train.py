@@ -445,7 +445,9 @@ def main(params):
                         t_batch_mi, mask_batch,
                         learning_rate, momentum,
                         k)
-                    if epoch >= 100 and (not isTerminal(k_record, limited_epochs=20, delta_k=0.06)):
+                    limited_epoch = 20
+                    delta_k = 0.06
+                    if epoch >= 100 and (not isTerminal(k_record, limited_epochs=limited_epoch, delta_k=delta_k)):
                         k, reward = run_QL(env, RL, net, x_batch, x_batch_dsi, sadj_batch, t_batch, t_batch_mi, mask_batch, acc)
                         k_record.append(round(k, 4))
                         endingRLEpoch = epoch
@@ -486,6 +488,8 @@ def main(params):
             "mean": mean,
             "std": std
         }
+        ####################
+        np.save(f'{limited_epoch}_{delta_k}_{fold}.npy', k_record)
         return ans
 
 
@@ -506,7 +510,7 @@ if __name__ == "__main__":
 
     params = {
     'dataset' : args.dataset,
-    'folds' : 10,
+    'folds' : 3,
     'num_epochs' : args.num_epoch,
     'batch_size' : args.batch_size,
     'max_pool' : args.max_pool,
