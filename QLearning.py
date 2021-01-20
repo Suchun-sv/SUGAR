@@ -57,7 +57,7 @@ def isTerminal(k_record, limited_epochs, delta_k, start_check_epochs=300):
    *for example k_record = [ 0.1, 0.2 ,0.3, 0.3] the last 3 change is [0.2, 0.3, 0.3],
    the range of it is 0.1 (0.3 - 0.2), which less than 0.3(if the delta k is 0.3)
     """
-    assert start_check_epochs > limited_epochs
+    assert start_check_epochs > limited_epochs, 'the length of k_record is not long enough'
     if len(k_record) >= start_check_epochs:
         record_len = len(k_record)
         record_last_limited_epochs = np.array(k_record[record_len-limited_epochs:])
