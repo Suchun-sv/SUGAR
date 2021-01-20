@@ -54,8 +54,8 @@ def isTerminal(k_record, limited_epochs, delta_k, start_check_epochs=100):
     if len(k_record) >= start_check_epochs:
         record_len = len(k_record)
         record_last_limited_epochs = np.array(k_record[record_len-limited_epochs:])
-        range = np.max(record_last_limited_epochs) - np.min(record_last_limited_epochs)
-        if range <= delta_k:
+        range_ = np.max(record_last_limited_epochs) - np.min(record_last_limited_epochs)
+        if range_ <= delta_k:
             return True
         else:
             return False

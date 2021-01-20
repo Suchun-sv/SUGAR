@@ -416,7 +416,7 @@ def main(params):
                                           feature.shape[0] - test_size,
                                           feature.shape[0], label_idx)
             max_fold_acc = 0
-            k_step_value = round(1.0 / net.num_subg, 4)
+            k_step_value = round(0.5 / net.num_subg, 4)
             env = GNN_env(action_value=k_step_value,
                            subgraph_num=net.num_subg, initial_k=k)
             RL = QLearningTable(actions=list(range(env.n_actions)), learning_rate=0.02)
@@ -444,7 +444,7 @@ def main(params):
                         t_batch_mi, mask_batch,
                         learning_rate, momentum,
                         k)
-                    if epoch >= 100 and isTerminal(k_record, limited_epochs=10, delta_k=0.2):
+                    if epoch >= 100 and (not isTerminal(k_record, limited_epochs=10, delta_k=0.2)):
                         k, reward = run_QL(env, RL, net, x_batch, x_batch_dsi, sadj_batch, t_batch, t_batch_mi, mask_batch, acc)
                         k_record.append(round(k, 4))
 
