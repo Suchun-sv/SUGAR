@@ -16,8 +16,6 @@ from QLearning import *
 from env import GNN_env
 import warnings
 
-warnings.filterwarnings("ignore")
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.FATAL)
 
 # num_info
 num_infoGraph = 1
@@ -379,20 +377,6 @@ class HGANP(object):
 
 
 def main(params):
-    """
-    ###############################################
-    :param:{
-    dataset = params['dataset']
-    num_epochs = params['num_epochs']
-    max_pool = params['max_pool']
-    batch_size = params['batch_size']
-    learning_rate = params['learning_rate']
-    momentum = params['mometum']
-    MI_loss = params['MI_loss']
-    sg_encoder = params['sg_encoder']
-    }
-    ###############################################
-    """
     ###############################################
     global max_pool
     global MI_loss
@@ -460,7 +444,7 @@ def main(params):
                         t_batch_mi, mask_batch,
                         learning_rate, momentum,
                         k)
-                    if epoch >= 100:
+                    if epoch >= 100 and isTerminal(k_record, limited_epochs=10, delta_k=0.2):
                         k, reward = run_QL(env, RL, net, x_batch, x_batch_dsi, sadj_batch, t_batch, t_batch_mi, mask_batch, acc)
                         k_record.append(round(k, 4))
 
@@ -481,8 +465,6 @@ def main(params):
                 if eva_acc > max_fold_acc:
                     max_fold_acc = eva_acc
                     vir_acc_fold.append(eva_acc)
-                    if not os.path.exists("ans"):
-                        os.mkdir("ans")
 
                 train_loss_record.append(train_loss / batch_num)
                 train_acc_record.append(eva_acc)
@@ -502,7 +484,6 @@ def main(params):
             "mean": mean,
             "std": std
         }
-
         return ans
 
 

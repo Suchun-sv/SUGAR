@@ -49,12 +49,13 @@ class QLearningTable:
 
 
 
-def isTerminal(k_record):
-    if len(k_record) >= 300:
-        reward_sum = 0
-        for ele in range(len(reward_record) - 10, len(reward_record)):
-            reward_sum += reward_record[ele]
-        if reward_sum <= 0.02:
+def isTerminal(k_record, limited_epochs, delta_k, start_check_epochs=100):
+    assert start_check_epochs > limited_epochs
+    if len(k_record) >= start_check_epochs:
+        record_len = len(k_record)
+        record_last_limited_epochs = np.array(k_record[record_len-limited_epochs:])
+        range = np.max(record_last_limited_epochs) - np.min(record_last_limited_epochs)
+        if range <= delta_k:
             return True
         else:
             return False
