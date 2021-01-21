@@ -1,6 +1,6 @@
 SUGAR
 
-Code for "SUGAR: Subgraph Neural Network with Reinforcement Pooling and Self-Supervised Mutual Information Mechanism"
+Code for "[SUGAR: Subgraph Neural Network with Reinforcement Pooling and Self-Supervised Mutual Information Mechanism](https://arxiv.org/abs/2101.08170)"
 
 Overview
 

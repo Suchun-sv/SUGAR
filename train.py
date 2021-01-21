@@ -472,7 +472,7 @@ def main(params):
                     max_fold_acc = eva_acc
                     vir_acc_fold.append(eva_acc)
 
-                np.save(f'{limited_epoch}_{delta_k}_{fold}.npy', k_record)
+                # np.save(f'{limited_epoch}_{delta_k}_{fold}.npy', k_record)
 
                 train_loss_record.append(train_loss / batch_num)
                 train_acc_record.append(eva_acc)
